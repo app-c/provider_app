@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "colaborador_ap",
+    "slug": "colaborador_ap",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "colaborador_ap"
+}

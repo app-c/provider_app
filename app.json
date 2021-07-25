@@ -5,6 +5,19 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
+    ],
+    "android": {
+      "package": "com.colaboradorap",
+      "googleServicesFile": "./google-services.json"
+
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "sounds": ["local/path/to/mySoundFile.wav"]
+        }
+      ]
     ]
   },
   "name": "colaborador_ap"

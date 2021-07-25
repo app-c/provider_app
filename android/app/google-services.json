@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "714790672758",
+    "project_id": "prestador-app-88d93",
+    "storage_bucket": "prestador-app-88d93.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714790672758:android:4b29ff864149e90af20257",
+        "android_client_info": {
+          "package_name": "com.colaboradorap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714790672758-ue1c0cpl84ugighcnpoudfkdvblun748.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEMhb_PkEdxcBz7YhNx8H439GffSHke_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714790672758-ue1c0cpl84ugighcnpoudfkdvblun748.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

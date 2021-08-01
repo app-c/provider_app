@@ -27,6 +27,8 @@
         "import-helpers"
     ],
     "rules": {
+       "@typescript-eslint/explicit-module-boundary-types": "off",
+       "import/prefer-default-export": "off",
        "import-helpers/order-imports": [
           "warn",
           {

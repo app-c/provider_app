@@ -8,6 +8,7 @@ import React, {
    useEffect,
    useState,
 } from "react";
+import { Alert } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -71,18 +72,21 @@ export const AuthProvider: React.FC = ({ children }) => {
          email,
          senha,
       });
-      console.log(response.data);
 
-      const { token, prestador } = response.data;
+      const { token, prestador, message } = response.data;
 
-      await AsyncStorage.multiSet([
-         ["@wil:token", token],
-         ["@wil:prestador", JSON.stringify(prestador)],
-      ]);
+      if (message) {
+         Alert.alert("erro", message);
+      } else {
+         await AsyncStorage.multiSet([
+            ["@wil:token", token],
+            ["@wil:prestador", JSON.stringify(prestador)],
+         ]);
 
-      api.defaults.headers.authorization = `Bearer ${token}`;
+         api.defaults.headers.authorization = `Bearer ${token}`;
 
-      seData({ token, prestador });
+         seData({ token, prestador });
+      }
    }, []);
 
    const signOut = useCallback(async () => {

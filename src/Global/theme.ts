@@ -1,7 +1,8 @@
 export default {
    cores: {
       background: "#FADDDF",
-      button: "#A56386",
+      light: "rgba(165, 99, 134, 0.2)",
+      secundary: "#A56386",
 
       attenticon: "#FB1F1F",
       success: "#289826",

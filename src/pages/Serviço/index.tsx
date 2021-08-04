@@ -77,17 +77,11 @@ const Serviço: React.FC = () => {
       [navigate, prestador.id]
    );
 
-   if (!fontsL) {
-      return <AppLoading />;
-   }
-
    return (
       <>
          <Container behavior="padding">
             <Image source={Logo} />
-            <TextTitle style={{ fontFamily: "MontBold" }}>
-               Criar um Serviço
-            </TextTitle>
+            <TextTitle>Criar um Serviço</TextTitle>
             <Form ref={formRef} onSubmit={createService}>
                <Input name="service" icon="" placeholder="Nome do serivço" />
                <Input

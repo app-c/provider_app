@@ -1,5 +1,6 @@
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
+
 import { useAuth } from "../hooks/AuthContext";
 import { Colors } from "../pages/utils";
 import AppRoutes from "./AppRoutes.routes";

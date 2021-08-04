@@ -77,9 +77,17 @@ const SingUp: React.FC = () => {
                funcao: data.funcao,
             });
 
-            console.log(response.status);
+            const { message } = response.data;
 
-            Alert.alert("Cadastro realiazado com sucesso!");
+            if (!message) {
+               Alert.alert("Cadastro realiazado com sucesso!");
+               goBack();
+            } else {
+               Alert.alert(
+                  "Erro no cadastro",
+                  "Ocorreu um erro ao tentar fazer o cadastro"
+               );
+            }
          } catch (err) {
             if (err instanceof Yup.ValidationError) {
                const errors = getValidationErrors(err);
@@ -99,30 +107,16 @@ const SingUp: React.FC = () => {
       [goBack]
    );
 
-   const fonstsLoadd = Fonts();
-   if (!fonstsLoadd) {
-      return <AppLoading />;
-   }
-
-   const styles = StyleSheet.create({
-      input: {
-         fontFamily: "MontBold",
-      },
-   });
-
-   const start = "08:00";
-   const stop = "19:00";
-
    return (
       <Linear
          colors={["#E4C6D5", "#EAEAEA"]}
          start={{ x: 0, y: 0 }}
          end={{ x: 0, y: 1 }}
       >
-         <ScrollView scrollEnabled>
-            <Container behavior="padding">
+         <ScrollView contentContainerStyle={{ paddingVertical: 50 }}>
+            <Container>
                <Image source={Logo} />
-               <Title style={{ fontFamily: "MontBold" }}>Criar uma conta</Title>
+               <Title>Criar uma conta</Title>
                <Form ref={formRef} onSubmit={handleSigUp}>
                   <Input name="nome" icon="user" placeholder="Nome" />
 
@@ -168,15 +162,14 @@ const SingUp: React.FC = () => {
                   />
 
                   <Input name="funcao" icon="award" placeholder="Sua funçao" />
-
-                  <Button
-                     onPress={() => {
-                        formRef.current?.submitForm();
-                     }}
-                  >
-                     Criar
-                  </Button>
                </Form>
+               <Button
+                  onPress={() => {
+                     formRef.current?.submitForm();
+                  }}
+               >
+                  Criar
+               </Button>
             </Container>
          </ScrollView>
          <BackContainer onPress={() => navigate.goBack()}>

@@ -13,3 +13,8 @@ export const Container = styled.View`
 export const TextTitle = styled.Text`
    margin-bottom: 40px;
 `;
+
+export const ContainerInputs = styled.View`
+   flex: 1;
+   width: 100%;
+`;

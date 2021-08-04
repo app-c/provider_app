@@ -27,21 +27,21 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "styled-components";
 
-import themes from "./Global/themes";
+import theme from "./Global/theme";
 import AppProvider from "./hooks";
 import Routes from "./routes";
 
 const App: React.FC = () => {
-   useEffect(() => {
-      async function updateApp() {
-         const { isAvailable } = await Updates.checkForUpdateAsync();
-         if (isAvailable) {
-            await Updates.fetchUpdateAsync();
-            await Updates.reloadAsync(); // depende da sua estratégia
-         }
-      }
-      updateApp();
-   }, []);
+   // useEffect(() => {
+   //    async function updateApp() {
+   //       const { isAvailable } = await Updates.checkForUpdateAsync();
+   //       if (isAvailable) {
+   //          await Updates.fetchUpdateAsync();
+   //          await Updates.reloadAsync(); // depende da sua estratégia
+   //       }
+   //    }
+   //    updateApp();
+   // }, []);
 
    const [fontsLoaded] = useFonts({
       QuattrocentoSans_400Regular,
@@ -57,7 +57,7 @@ const App: React.FC = () => {
       <NavigationContainer>
          <StatusBar style="dark" hidden />
          <AppProvider>
-            <ThemeProvider theme={themes}>
+            <ThemeProvider theme={theme}>
                <View style={{ flex: 1 }}>
                   <Routes />
                </View>

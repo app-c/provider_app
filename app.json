@@ -1,24 +1,27 @@
 {
-  "expo": {
-    "name": "colaborador_ap",
-    "slug": "colaborador_ap",
-    "version": "2.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "package": "com.colaboradorap",
-      "googleServicesFile": "./google-services.json"
+"expo": {
+   "name": "colaborador_ap",
+   "slug": "colaborador_ap",
+   "version": "2.0.0",
+   "assetBundlePatterns": [
+   "**/*"
+   ],
+   "android": {
+   "package": "com.colaboradorap",
+   "googleServicesFile": "./google-services.json"
 
-    },
-    "plugins": [
-      [
-        "expo-notifications",
-        {
-          "sounds": ["local/path/to/mySoundFile.wav"]
-        }
-      ]
-    ]
-  },
-  "name": "colaborador_ap"
+   },
+   "plugins": [
+   [
+      "expo-notifications",
+      {
+         "icon": "./src/assets/Logo.png",
+          "color": "#ffffff",
+          "sounds": ["./local/path/to/mySound.wav", "./local/path/to/myOtherSound.wav"],
+          "mode": "production"
+      }
+   ]
+   ]
+},
+"name": "colaborador_ap"
 }

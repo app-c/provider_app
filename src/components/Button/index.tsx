@@ -7,11 +7,12 @@ import { Container, ButtonText } from "./styles";
 
 interface ButtonProps extends RectButtonProperties {
    children: string;
+   pres?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, ...rest }) => {
+const Button: React.FC<ButtonProps> = ({ children, pres, ...rest }) => {
    return (
-      <Container {...rest}>
+      <Container onPress={pres} {...rest}>
          <ButtonText>{children}</ButtonText>
       </Container>
    );

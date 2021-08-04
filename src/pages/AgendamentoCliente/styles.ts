@@ -1,4 +1,3 @@
-import { FlatList } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 
 import styled from "styled-components/native";
@@ -48,7 +47,7 @@ export const Hour = styled.View<HourProps>`
 `;
 
 export const HourText = styled.Text<HourProps>`
-   font-family: "MontBold";
+   font-family: ${({ theme }) => theme.fonts.doka};
    font-size: 16px;
    color: ${(props) => (props.select ? `${cores.branco}` : `${cores.roxo}`)};
 `;

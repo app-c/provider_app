@@ -1,43 +1,35 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Alert, RefreshControl } from "react-native";
+import { useForm } from "react-hook-form";
+import { Alert, Modal, RefreshControl } from "react-native";
 
-import AppLoading from "expo-app-loading";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-import { useNavigation } from "@react-navigation/native";
-
-import Button from "../../componentesServiço/Button";
-import Input from "../../componentesServiço/Input";
+import { ServicosComponents } from "../../components/FlatListComponents/ServicosComponens";
+import { UpdaServiceConponents } from "../../components/UpdateServiceConponents";
 import { useAuth } from "../../hooks/AuthContext";
 import { api } from "../../services/api";
-import getValidationErrors from "../../utils/getValidationsErrors";
 import { Fonts } from "../utils";
-import {
-   Box,
-   BoxEdit,
-   BoxEditTouth,
-   Container,
-   ContainerEdid,
-   ContainerService,
-   List,
-   Scroll,
-   TextDescription,
-   TextElementos,
-   TextTitle,
-   BoxEditToutB,
-} from "./styles";
+import { Container, List, TextTitle } from "./styles";
 
 export interface IData {
    id: string;
    service: string;
    time: string;
    description: string;
-   value: number;
+   value: string;
+}
+
+interface Res {
+   res: string;
 }
 
 const UpdateService: React.FC = () => {
    const { navigate, addListener } = useNavigation();
-   const fontsL = Fonts();
+   const route = useRoute();
+   const res = route.params as Res;
+
    const [response, setResponse] = useState<IData[]>([]);
+   const [at, setAt] = useState({ res: "clear" });
    const { prestador } = useAuth();
    const [serviceId, setServiceId] = useState("");
    const [refleshing, setReflesh] = useState(false);
@@ -45,12 +37,11 @@ const UpdateService: React.FC = () => {
    const [time, setTime] = useState("");
    const [description, setDescripton] = useState("");
    const [id, setId] = useState("");
-   const [value, setValue] = useState(0);
+   const [value, setValue] = useState("");
 
    const handleDelete = useCallback(
       async (id: string) => {
          await api.delete(`/service/service/${id}/delet`);
-
          setResponse(response.filter((h) => h.id !== id));
       },
       [response]
@@ -85,10 +76,22 @@ const UpdateService: React.FC = () => {
       api.get(`service/${prestador.id}/list`).then((res) =>
          setResponse(res.data)
       );
-   }, [prestador.id, refleshing]);
+   }, [prestador.id, refleshing, res]);
 
    const handleUpate = useCallback(
-      ({ id, service, time, description, value }: IData) => {
+      (
+         id: string,
+         service: string,
+         time: string,
+         description: string,
+         value: string
+      ) => {
+         setId(id);
+         setService(service);
+         setTime(time);
+         setDescripton(description);
+         setValue(value);
+
          async function up() {
             navigate("Update", {
                id,
@@ -99,98 +102,42 @@ const UpdateService: React.FC = () => {
             });
          }
          up();
+         setAt({ res: "clear" });
       },
       [navigate]
    );
 
-   if (!fontsL) {
-      return <AppLoading />;
-   }
-
    return (
-      <>
-         <Container behavior="padding">
-            <Scroll
-               refreshControl={
-                  <RefreshControl
-                     refreshing={refleshing}
-                     onRefresh={onRefresh}
-                  />
-               }
-            >
-               <TextTitle>Atualizar os serviços</TextTitle>
+      <Container>
+         <TextTitle>Atualizar os serviços</TextTitle>
 
-               <ContainerService>
-                  <List
-                     contentContainerStyle={{
-                        paddingBottom: 30,
-                     }}
-                     data={response}
-                     keyExtractor={(res) => res.id}
-                     renderItem={({ item: res }) => (
-                        <Box>
-                           <TextElementos>
-                              {" "}
-                              Serviço: {}
-                              <TextDescription>{res.service}</TextDescription>
-                           </TextElementos>
-
-                           <TextElementos>
-                              {" "}
-                              Descrição: {}
-                              <TextDescription>
-                                 {res.description}
-                              </TextDescription>
-                           </TextElementos>
-
-                           <TextElementos>
-                              {" "}
-                              Valor: R$ {}
-                              <TextDescription>{res.value}</TextDescription>
-                           </TextElementos>
-
-                           <TextElementos>
-                              {" "}
-                              Tempo: {}
-                              <TextDescription> {res.time}</TextDescription>
-                           </TextElementos>
-                           <ContainerEdid>
-                              {setId(res.id)}
-                              {setService(res.service)}
-                              {setDescripton(res.description)}
-                              {setValue(res.value)}
-                              {setTime(res.time)}
-                              <BoxEditTouth
-                                 onPress={() => {
-                                    handleUpate({
-                                       id,
-                                       service,
-                                       description,
-                                       value,
-                                       time,
-                                    });
-                                 }}
-                              >
-                                 <BoxEdit>
-                                    <TextDescription>Editar</TextDescription>
-                                 </BoxEdit>
-                              </BoxEditTouth>
-
-                              <BoxEditToutB
-                                 onPress={() => handleDelete(res.id)}
-                              >
-                                 <BoxEdit>
-                                    <TextDescription>Deletar</TextDescription>
-                                 </BoxEdit>
-                              </BoxEditToutB>
-                           </ContainerEdid>
-                        </Box>
-                     )}
-                  />
-               </ContainerService>
-            </Scroll>
-         </Container>
-      </>
+         <List
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+               <RefreshControl refreshing={refleshing} onRefresh={onRefresh} />
+            }
+            data={response}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item: h }) => (
+               <ServicosComponents
+                  update={() => {
+                     handleUpate(
+                        h.id,
+                        h.service,
+                        h.time,
+                        h.description,
+                        h.value
+                     );
+                  }}
+                  deletar={() => handleDelete(h.id)}
+                  service={h.service}
+                  time={h.time}
+                  description={h.description}
+                  value={h.value}
+               />
+            )}
+         />
+      </Container>
    );
 };
 

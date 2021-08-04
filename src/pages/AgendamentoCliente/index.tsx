@@ -38,7 +38,6 @@ const AgendamentoCliente: React.FC = () => {
    const { navigate } = useNavigation();
    const { prestador } = useAuth();
    const { service, user_id } = route.params as RouteParams;
-   console.log(service, user_id);
 
    const [showPiker, setShowPiker] = useState(false);
    const [selectDia, setSelectDia] = useState(new Date());
@@ -69,12 +68,6 @@ const AgendamentoCliente: React.FC = () => {
             hour,
             avaliable,
          };
-      });
-   }, [disponivel]);
-
-   const handleDisponivel = useMemo(() => {
-      return disponivel.filter((h) => {
-         return h.avaliable !== false;
       });
    }, [disponivel]);
 

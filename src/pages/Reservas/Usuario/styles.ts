@@ -1,5 +1,6 @@
 import { FlatList } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
+import { RFValue } from "react-native-responsive-fontsize";
 
 import styled from "styled-components/native";
 
@@ -18,6 +19,9 @@ export const Container = styled.View`
 
 export const TextTitle = styled.Text`
    margin-left: 20px;
+   font-size: ${RFValue(16)}px;
+   font-family: ${({ theme: h }) => h.fonts.bold};
+   color: ${({ theme: h }) => h.cores.shape};
 `;
 
 export const ContainerInput = styled(
@@ -25,7 +29,7 @@ export const ContainerInput = styled(
 )``;
 
 export const ContainerFlatList = styled.View`
-   height: 250px;
+   height: ${RFValue(250)}px;
    margin-top: 30px;
    margin-bottom: 30px;
 `;
@@ -43,17 +47,16 @@ export const ContainerUser = styled.TouchableOpacity<Props>`
 export const ContainerAvatar = styled.View``;
 
 export const ImageAvatar = styled.Image`
-   width: 70px;
-   height: 70px;
-   background-color: ${cores.branco};
+   width: ${RFValue(70)}px;
+   height: ${RFValue(70)}px;
+   background-color: ${({ theme: h }) => h.cores.shape};
    border-radius: 20px;
 `;
 
 export const InputContainer = styled.View`
-   background-color: ${cores.roxo};
-   opacity: 0.9;
+   background-color: ${({ theme: h }) => h.cores.secundary};
    width: 100%;
-   height: 60px;
+   height: ${RFValue(60)}px;
    padding: 3px 10px;
 
    justify-content: center;
@@ -75,15 +78,16 @@ export const ServiceContainer = styled(
 
 export const BoxContainer = styled(RectButton)<Props>`
    margin-left: 10px;
-   background-color: ${(prop) =>
-      prop.pres ? `${cores.roxo}` : `${cores.branco}`};
+   background-color: ${({ pres, theme }) =>
+      pres ? theme.cores.secundary : theme.cores.light};
    border-radius: 15px;
    align-items: center;
    justify-content: center;
    padding: 5px;
 `;
 
-export const ServiceText = styled.Text`
-   font-size: 16px;
-   color: ${cores.rosa};
+export const ServiceText = styled.Text<Props>`
+   font-size: ${RFValue(16)}px;
+   font-family: ${({ theme: h }) => h.fonts.doka};
+   color: ${({ theme: h, pres }) => (pres ? h.cores.shape : h.cores.secundary)};
 `;

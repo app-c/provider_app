@@ -16,8 +16,6 @@ import Input from "../../components/Input";
 import { useAuth } from "../../hooks/AuthContext";
 import { api } from "../../services/api";
 import getValidationErrors from "../../utils/getValidationsErrors";
-import { Boto } from "../SingUp/styles";
-import { Fonts } from "../utils";
 import {
    Container,
    Linear,
@@ -35,12 +33,11 @@ const SingIn: React.FC = () => {
    const formRef = useRef<FormHandles>(null);
 
    const naivgation = useNavigation();
-   const { signIn, prestador } = useAuth();
-   console.log(prestador);
+   const { signIn } = useAuth();
 
    const handleSingUp = useCallback(async () => {
       naivgation.navigate("SignUp");
-   }, []);
+   }, [naivgation]);
 
    const handleSignIn = useCallback(
       async (data: SignInFormData) => {
@@ -87,14 +84,8 @@ const SingIn: React.FC = () => {
       [signIn]
    );
 
-   const fonstsLoadd = Fonts();
-   if (!fonstsLoadd) {
-      return <AppLoading />;
-   }
-
    const styles = StyleSheet.create({
       title: {
-         fontFamily: "MontBold",
          marginBottom: 15,
          fontSize: 16,
       },
@@ -125,22 +116,19 @@ const SingIn: React.FC = () => {
                      placeholder="Senha"
                      secureTextEntry
                   />
-
-                  <Button
-                     onPress={() => {
-                        formRef.current?.submitForm();
-                     }}
-                  >
-                     Entrar
-                  </Button>
                </Form>
+               <Button
+                  onPress={() => {
+                     formRef.current?.submitForm();
+                  }}
+               >
+                  Entrar
+               </Button>
             </Container>
          </ScrollView>
          <CreateAccountContainer onPress={handleSingUp}>
             <Icon name="right" color="#999999" size={20} />
-            <AccountText style={{ fontFamily: "MontBold" }}>
-               Criar uma conta
-            </AccountText>
+            <AccountText>Criar uma conta</AccountText>
          </CreateAccountContainer>
       </Linear>
    );

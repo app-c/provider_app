@@ -17,9 +17,9 @@ import { Notification } from "../pages/Notification";
 import Profile from "../pages/Profile";
 import Serviço from "../pages/Serviço";
 import UpdateService from "../pages/UpadeService";
-import { Update } from "../pages/UpadeService/Update";
 import { api } from "../services/api";
 import AppService from "./AppServices.routes";
+import AppUpdate from "./AppUpdate.routes";
 
 const Drawer = createDrawerNavigator();
 
@@ -39,10 +39,6 @@ const AppRoutes: React.FC = () => {
             token: expoPushToken,
          });
 
-         // const re = await api.put("/prestador/updateToken", {
-         //    token:
-         // });
-         console.log(response.data);
          return response.data;
       }
       Register();
@@ -82,17 +78,15 @@ const AppRoutes: React.FC = () => {
    }
 
    return (
-      <>
-         <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Home" component={DashBoard} />
-            <Drawer.Screen name="Agenda" component={Agenda} />
-            <Drawer.Screen name="Profile" component={Profile} />
-            <Drawer.Screen name="Serviço" component={Serviço} />
-            <Drawer.Screen name="Atualizar serviço" component={UpdateService} />
-            <Drawer.Screen name="Reserva de horários" component={AppService} />
-            <Drawer.Screen name="notification" component={Notification} />
-         </Drawer.Navigator>
-      </>
+      <Drawer.Navigator initialRouteName="Home">
+         <Drawer.Screen name="Home" component={DashBoard} />
+         <Drawer.Screen name="Agenda" component={Agenda} />
+         <Drawer.Screen name="Profile" component={Profile} />
+         <Drawer.Screen name="Serviço" component={Serviço} />
+         <Drawer.Screen name="Atualizar serviço" component={AppUpdate} />
+         <Drawer.Screen name="Reserva de horários" component={AppService} />
+         <Drawer.Screen name="notification" component={Notification} />
+      </Drawer.Navigator>
    );
 };
 
